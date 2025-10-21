@@ -78,6 +78,8 @@ function formatEUR(n: number) {
 export default function Page() {
   const [q, setQ] = useState("");
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return sets;
