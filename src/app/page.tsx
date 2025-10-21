@@ -13,7 +13,7 @@ const sets = [
   {
     id: "71720",
     naam: "NINJAGO – Fire Stone Mech",
-    prijsPerWeek: 5,
+    prijsPerWeek: 7.50,
     borg: 25,
     imageUrl: "https://m.media-amazon.com/images/I/81MT437XcAL.jpg",
   },
@@ -27,7 +27,7 @@ const sets = [
   {
     id: "71766",
     naam: "NINJAGO – Lloyd’s Legendary Dragon",
-    prijsPerWeek: 5,
+    prijsPerWeek: 7.50,
     borg: 25,
     imageUrl: "https://m.media-amazon.com/images/I/81TeBf%2BCU2L._AC_UF894%2C1000_QL80_.jpg",
   },
@@ -55,16 +55,16 @@ const sets = [
   {
     id: "71748",
     naam: "NINJAGO – Catamaran Sea Battle",
-    prijsPerWeek: 5,
+    prijsPerWeek: 7.50,
     borg: 25,
     imageUrl: "https://m.media-amazon.com/images/I/81VFdinfPWL._AC_UF894%2C1000_QL80_.jpg",
   },
   {
-    id: "70648",
-    naam: "NINJAGO – Zane – Dragon Master",
-    prijsPerWeek: 3,
+    id: "71765", 
+    naam: "NINJAGO – Ninja Ultra Combo Mecha",
+    prijsPerWeek: 7.50,
     borg: 20,
-    imageUrl: "https://m.media-amazon.com/images/I/A1J8cnpXE-L.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/81C3HZfJzLL._AC_SL1500_.jpg",
   },
 ];
 
