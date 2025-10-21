@@ -6,28 +6,28 @@ import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare, Search, Info, Package } from "lucide-react";
 import { motion } from "framer-motion";
 
-const PHONE_RAW = "0645105138";
-const PHONE_INT = "31645105138";
+const PHONE_RAW = "0645105138"; // getoond op de site
+const PHONE_INT = "31645105138"; // voor WhatsApp link (06 -> +31)
 
 const sets = [
   {
     id: "71720",
     naam: "NINJAGO – Fire Stone Mech",
-    prijsPerWeek: 10,
+    prijsPerWeek: 5,
     borg: 25,
     imageUrl: "https://m.media-amazon.com/images/I/81MT437XcAL.jpg",
   },
   {
     id: "71772",
     naam: "NINJAGO – The Crystal King",
-    prijsPerWeek: 12,
+    prijsPerWeek: 5,
     borg: 25,
     imageUrl: "https://i.ebayimg.com/images/g/SMQAAOSw9DxnQXuS/s-l1200.jpg",
   },
   {
     id: "71766",
     naam: "NINJAGO – Lloyd’s Legendary Dragon",
-    prijsPerWeek: 10,
+    prijsPerWeek: 5,
     borg: 25,
     imageUrl: "https://m.media-amazon.com/images/I/81TeBf%2BCU2L._AC_UF894%2C1000_QL80_.jpg",
   },
@@ -69,7 +69,10 @@ const sets = [
 ];
 
 function formatEUR(n: number) {
-  return new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" }).format(n);
+  return new Intl.NumberFormat("nl-NL", {
+    style: "currency",
+    currency: "EUR",
+  }).format(n);
 }
 
 const WhatsAppButton: React.FC<{ setId: string; setNaam: string }> = ({ setId, setNaam }) => {
@@ -89,7 +92,7 @@ const WhatsAppButton: React.FC<{ setId: string; setNaam: string }> = ({ setId, s
 const BelButton: React.FC = () => (
   <Button asChild variant="secondary" className="w-full">
     <a href={`tel:${PHONE_RAW}`}>
-      <Phone className="mr-2 h-4 w-4" /> Bel
+      <Phone className="mr-2 h-4 w-4" /> Bel {PHONE_RAW}
     </a>
   </Button>
 );
@@ -101,13 +104,13 @@ const Hero: React.FC = () => (
     transition={{ duration: 0.5 }}
     className="mx-auto max-w-5xl text-center"
   >
-    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">Lego Verhuur Menno</h1>
+    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">Welkom bij Lego Verhuur Menno</h1>
     <p className="mt-4 text-lg text-muted-foreground">
       Kies je set, stuur een appje, haal op – bouwen maar! Simpel en lokaal.
     </p>
-    <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3 w-full px-4">
+    <div className="mt-4 flex items-center justify-center gap-3">
       <BelButton />
-      <Button asChild className="w-full sm:w-auto">
+      <Button asChild>
         <a href={`https://wa.me/${PHONE_INT}`} target="_blank" rel="noreferrer">
           <MessageSquare className="mr-2 h-4 w-4" /> WhatsApp
         </a>
@@ -193,7 +196,7 @@ const InfoBox: React.FC = () => (
               <li>Graag compleet en netjes terugbrengen (controle bij inname).</li>
             </ol>
             <div className="pt-2 text-sm">
-              <span className="font-medium">Voorwaarden:</span> borg, vervangingskosten bij missende onderdelen, schoon en rookvrij huis, geen lijm/verf, schade in overleg verrekend.
+              <span className="font-medium">Voorwaarden (suggestie):</span> borg, vervangingskosten bij missende onderdelen, schoon en rookvrij huis, geen lijm/verf, schade in overleg verrekend.
             </div>
           </div>
         </div>
@@ -215,6 +218,7 @@ const Footer: React.FC = () => (
 export default function LegoVerhuurSite() {
   const [q, setQ] = useState("");
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return sets;
@@ -225,28 +229,26 @@ export default function LegoVerhuurSite() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#1faa3f",
-        backgroundImage: `
-          radial-gradient(#2fd64f 1px, transparent 1px),
-          radial-gradient(#2fd64f 1px, transparent 1px)`,
+        backgroundColor: "#48bb78",
+        backgroundImage:
+          "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)",
         backgroundSize: "20px 20px",
-        backgroundPosition: "0 0, 10px 10px",
-        animation: "shine 4s linear infinite",
+        animation: "legoShine 16s linear infinite",
       }}
     >
-      <style>
-        {`@keyframes shine {
-          0% { filter: brightness(100%); }
-          50% { filter: brightness(105%); }
-          100% { filter: brightness(100%); }
-        }`}
-      </style>
-
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-background/80 border-b">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/lego-head.svg" alt="LEGO" className="h-7 w-7" />
             <span className="font-bold text-lg">Lego Verhuur Menno</span>
+          </div>
+          <div className="hidden sm:flex items-center gap-2">
+            <BelButton />
+            <Button asChild>
+              <a href={`https://wa.me/${PHONE_INT}`} target="_blank" rel="noreferrer">
+                <MessageSquare className="mr-2 h-4 w-4" /> App meteen
+              </a>
+            </Button>
           </div>
         </div>
       </header>
@@ -255,16 +257,27 @@ export default function LegoVerhuurSite() {
         <section className="py-10">
           <Hero />
           <Filters q={q} setQ={setQ} />
+
           <div className="mx-auto mt-8 max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((s) => (
               <SetCard key={s.id} s={s} />
             ))}
           </div>
+
           <InfoBox />
         </section>
       </main>
 
       <Footer />
+
+      <style>
+        {`
+          @keyframes legoShine {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
+          }
+        `}
+      </style>
     </div>
   );
 }
