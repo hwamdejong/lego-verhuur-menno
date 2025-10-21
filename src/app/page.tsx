@@ -13,7 +13,7 @@ const sets = [
   {
     id: "71720",
     naam: "NINJAGO – Fire Stone Mech",
-    prijsPerWeek: 10,
+    prijsPerWeek: 5,
     borg: 25,
     imageUrl: "https://m.media-amazon.com/images/I/81MT437XcAL.jpg",
   },
