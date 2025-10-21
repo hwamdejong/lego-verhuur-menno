@@ -5,6 +5,7 @@ import React, { useMemo, useState } from "react";
 // *** LITE-VERSIE ZONDER EXTRA BIBLIOTHEKEN ***
 // - Geen shadcn/ui nodig (dus geen Button/Card imports)
 // - Geen framer-motion nodig
+// - test
 // - Werkt puur met Tailwind classes
 // Dit voorkomt build-fouten als shadcn niet (volledig) is ingesteld.
 
