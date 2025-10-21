@@ -20,14 +20,14 @@ const sets = [
   {
     id: "71772",
     naam: "NINJAGO – The Crystal King",
-    prijsPerWeek: 12,
+    prijsPerWeek: 5,
     borg: 25,
     imageUrl: "https://i.ebayimg.com/images/g/SMQAAOSw9DxnQXuS/s-l1200.jpg",
   },
   {
     id: "71766",
     naam: "NINJAGO – Lloyd’s Legendary Dragon",
-    prijsPerWeek: 10,
+    prijsPerWeek: 5,
     borg: 25,
     imageUrl: "https://m.media-amazon.com/images/I/81TeBf%2BCU2L._AC_UF894%2C1000_QL80_.jpg",
   },
@@ -69,11 +69,16 @@ const sets = [
 ];
 
 function formatEUR(n: number) {
-  return new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" }).format(n);
+  return new Intl.NumberFormat("nl-NL", {
+    style: "currency",
+    currency: "EUR",
+  }).format(n);
 }
 
 const WhatsAppButton: React.FC<{ setId: string; setNaam: string }> = ({ setId, setNaam }) => {
-  const msg = encodeURIComponent(`Hoi! Ik wil graag set ${setId} (${setNaam}) huren. Is deze beschikbaar?`);
+  const msg = encodeURIComponent(
+    `Hoi! Ik wil graag set ${setId} (${setNaam}) huren. Is deze beschikbaar?`
+  );
   const waUrl = `https://wa.me/${PHONE_INT}?text=${msg}`;
   return (
     <Button asChild className="w-full">
@@ -213,6 +218,7 @@ const Footer: React.FC = () => (
 export default function LegoVerhuurSite() {
   const [q, setQ] = useState("");
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return sets;
@@ -223,22 +229,13 @@ export default function LegoVerhuurSite() {
     <div
       className="min-h-screen"
       style={{
-        backgroundColor: "#c1f0c1",
-        backgroundImage: `
-          radial-gradient(#8fd88f 1px, transparent 1px),
-          radial-gradient(#8fd88f 1px, transparent 1px)`,
-        backgroundPosition: "0 0, 20px 20px",
-        backgroundSize: "40px 40px",
+        backgroundColor: "#48bb78",
+        backgroundImage:
+          "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)",
+        backgroundSize: "20px 20px",
         animation: "legoShine 16s linear infinite",
       }}
     >
-      <style>{`
-        @keyframes legoShine {
-          0% { background-position: 0 0, 20px 20px; }
-          100% { background-position: 40px 40px, 60px 60px; }
-        }
-      `}</style>
-
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-background/80 border-b">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -272,6 +269,15 @@ export default function LegoVerhuurSite() {
       </main>
 
       <Footer />
+
+      <style>
+        {`
+          @keyframes legoShine {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
+          }
+        `}
+      </style>
     </div>
   );
 }
