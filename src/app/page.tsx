@@ -103,7 +103,7 @@ const Hero: React.FC = () => (
   >
     <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">Lego Verhuur Menno</h1>
     <p className="mt-4 text-lg text-white">
-      Kies je set, stuur een appje, haal op – bouwen maar! Simpel en lokaal.
+      Kies je set, stuur een appje, haal op in Zeist West – bouwen maar! Simpel en lokaal.
     </p>
     <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3 w-full px-4">
       <BelButton />
