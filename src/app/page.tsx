@@ -245,7 +245,7 @@ export default function LegoVerhuurSite() {
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-background/80 border-b">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/menno.jpg" alt="LEGO" className="h-7 w-7" />
+            <img src="/menno.jpg" alt="LEGO" className="h-17 w-17" />
             <span className="font-bold text-lg">Lego Verhuur Menno</span>
           </div>
         </div>
