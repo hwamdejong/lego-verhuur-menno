@@ -2,11 +2,15 @@
 
 import React, { useMemo, useState } from "react";
 
-// --- Instellingen ---
-const PHONE_RAW = "0645105138";  // getoond op de site
+// *** LITE-VERSIE ZONDER EXTRA BIBLIOTHEKEN ***
+// - Geen shadcn/ui nodig (dus geen Button/Card imports)
+// - Geen framer-motion nodig
+// - Werkt puur met Tailwind classes
+// Dit voorkomt build-fouten als shadcn niet (volledig) is ingesteld.
+
+const PHONE_RAW = "0645105138"; // getoond op de site
 const PHONE_INT = "31645105138"; // voor WhatsApp link (06 -> +31)
 
-// --- Sets (met externe afbeeldingen) ---
 const sets = [
   {
     id: "71720",
@@ -67,10 +71,7 @@ const sets = [
 ];
 
 function formatEUR(n: number) {
-  return new Intl.NumberFormat("nl-NL", {
-    style: "currency",
-    currency: "EUR",
-  }).format(n);
+  return new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" }).format(n);
 }
 
 export default function Page() {
@@ -79,13 +80,41 @@ export default function Page() {
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return sets;
-    return sets.filter(
-      (s) => s.id.includes(term) || s.naam.toLowerCase().includes(term)
-    );
+    return sets.filter((s) => s.id.includes(term) || s.naam.toLowerCase().includes(term));
   }, [q]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* LEGO studs background */}
+      {/* LEGO studs background (emerald green) */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{
+          backgroundColor: '#1B5E20',
+          backgroundImage: `
+            radial-gradient(circle at 12px 12px, rgba(255,255,255,0.30) 0px, rgba(255,255,255,0.12) 6px, rgba(0,0,0,0.18) 8px, rgba(0,0,0,0.10) 10px, transparent 12px),
+            radial-gradient(circle at 24px 24px, rgba(255,255,255,0.30) 0px, rgba(255,255,255,0.12) 6px, rgba(0,0,0,0.18) 8px, rgba(0,0,0,0.10) 10px, transparent 12px),
+            linear-gradient(180deg, #2E7D32 0%, #1B5E20 60%, #0F3D13 100%)
+          `,
+          backgroundSize: '48px 48px, 48px 48px, auto',
+          backgroundPosition: '0 0, 24px 24px, 0 0'
+        }}
+      />
+
+      {/* Subtle moving shine overlay */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0"
+        style={{ zIndex: -9, backgroundRepeat: 'no-repeat', backgroundSize: '200% 100%', animation: 'legoShine 16s linear infinite' as any, backgroundImage: 'linear-gradient(120deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 65%)' }}
+      />
+
+      <style>{`
+        @keyframes legoShine {
+          0% { background-position: -50% 0; }
+          100% { background-position: 150% 0; }
+        }
+      `}</style>
       {/* HEADER */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/80 border-b">
         <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
@@ -94,51 +123,26 @@ export default function Page() {
             <span className="font-bold text-lg">Lego Verhuur Menno</span>
           </div>
           <div className="hidden sm:flex items-center gap-2">
-            <a
-              href={`tel:${PHONE_RAW}`}
-              className="px-3 py-2 rounded-xl border text-sm hover:bg-gray-50"
-            >
-              Bel {PHONE_RAW}
-            </a>
-            <a
-              href={`https://wa.me/${PHONE_INT}`}
-              target="_blank"
-              rel="noreferrer"
-              className="px-3 py-2 rounded-xl bg-gray-900 text-white text-sm hover:opacity-90"
-            >
-              WhatsApp
-            </a>
+            <a href={`tel:${PHONE_RAW}`} className="px-3 py-2 rounded-xl border text-sm hover:bg-gray-50">Bel {PHONE_RAW}</a>
+            <a href={`https://wa.me/${PHONE_INT}`} target="_blank" rel="noreferrer" className="px-3 py-2 rounded-xl bg-gray-900 text-white text-sm hover:opacity-90">WhatsApp</a>
           </div>
         </div>
       </header>
 
-      {/* HERO + ZOEK */}
+      {/* HERO */}
       <section className="px-4 py-10 text-center">
         <div className="mx-auto max-w-5xl">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            Welkom bij Lego Verhuur Menno
-          </h1>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">Welkom bij Lego Verhuur Menno</h1>
           <p className="mt-4 text-lg text-gray-600">
             Kies je set, stuur een appje, haal op – bouwen maar! Simpel en lokaal.
           </p>
           <div className="mt-4 flex items-center justify-center gap-3">
-            <a
-              href={`tel:${PHONE_RAW}`}
-              className="px-4 py-2 rounded-xl border hover:bg-gray-50"
-            >
-              Bel {PHONE_RAW}
-            </a>
-            <a
-              href={`https://wa.me/${PHONE_INT}`}
-              target="_blank"
-              rel="noreferrer"
-              className="px-4 py-2 rounded-xl bg-gray-900 text-white hover:opacity-90"
-            >
-              WhatsApp
-            </a>
+            <a href={`tel:${PHONE_RAW}`} className="px-4 py-2 rounded-xl border hover:bg-gray-50">Bel {PHONE_RAW}</a>
+            <a href={`https://wa.me/${PHONE_INT}`} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-xl bg-gray-900 text-white hover:opacity-90">WhatsApp</a>
           </div>
         </div>
 
+        {/* ZOEK */}
         <div className="mx-auto mt-8 max-w-5xl">
           <div className="relative">
             <input
@@ -155,10 +159,7 @@ export default function Page() {
       <section className="px-4">
         <div className="mx-auto mt-2 max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((s) => (
-            <article
-              key={s.id}
-              className="rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition"
-            >
+            <article key={s.id} className="rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-md transition">
               <div className="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img
                   src={s.imageUrl}
@@ -176,9 +177,7 @@ export default function Page() {
                   </div>
                   <div className="text-right">
                     <div className="font-semibold">{formatEUR(s.prijsPerWeek)}/week</div>
-                    <div className="text-xs text-gray-600">
-                      Borg: {formatEUR(s.borg)}
-                    </div>
+                    <div className="text-xs text-gray-600">Borg: {formatEUR(s.borg)}</div>
                   </div>
                 </div>
                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -192,10 +191,7 @@ export default function Page() {
                   >
                     Reserveer via WhatsApp
                   </a>
-                  <a
-                    href={`tel:${PHONE_RAW}`}
-                    className="text-center px-3 py-2 rounded-xl border hover:bg-gray-50"
-                  >
+                  <a href={`tel:${PHONE_RAW}`} className="text-center px-3 py-2 rounded-xl border hover:bg-gray-50">
                     Bel {PHONE_RAW}
                   </a>
                 </div>
@@ -218,9 +214,7 @@ export default function Page() {
                 <li>Graag compleet en netjes terugbrengen (controle bij inname).</li>
               </ol>
               <div className="pt-3 text-sm text-gray-700">
-                <span className="font-medium">Voorwaarden (suggestie):</span>{" "}
-                borg, vervangingskosten bij missende onderdelen, schoon en rookvrij
-                huis, geen lijm/verf, schade in overleg verrekend.
+                <span className="font-medium">Voorwaarden (suggestie):</span> borg, vervangingskosten bij missende onderdelen, schoon en rookvrij huis, geen lijm/verf, schade in overleg verrekend.
               </div>
             </div>
           </div>
@@ -233,10 +227,7 @@ export default function Page() {
           <span className="inline-block h-4 w-4 bg-gray-900 rounded" aria-hidden />
           <span>Particuliere LEGO-verhuur • Bel/WhatsApp: {PHONE_RAW}</span>
         </div>
-        <div className="mt-2">
-          © {new Date().getFullYear()} – Alle merknamen en afbeeldingen behoren toe aan hun
-          respectieve eigenaren.
-        </div>
+        <div className="mt-2">© {new Date().getFullYear()} – Alle merknamen en afbeeldingen behoren toe aan hun respectieve eigenaren.</div>
       </footer>
     </div>
   );
